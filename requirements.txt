@@ -8,3 +8,4 @@ pandas
 gunicorn
 wandb
 flask
+IPython
