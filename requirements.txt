@@ -1,0 +1,12 @@
+matplotlib
+requests
+tqdm
+urllib3
+pillow
+numpy
+pandas
+gunicorn
+wandb
+flask
+torch==2.2.1
+torchvision==0.17.1
