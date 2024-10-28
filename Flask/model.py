@@ -15,7 +15,7 @@ class PlantDiseaseClassifier(nn.Module):
     def __init__(self, num_classes):
         super(PlantDiseaseClassifier, self).__init__()
         # Load EfficientNetB0 model
-        self.base_model = models.efficientnet_b0(weights=models.EfficientNet_B0_Weights.DEFAULT)
+        self.base_model = models.efficientnet_b0()
 
         # Modify classifier to match the number of classes
         num_ftrs = self.base_model.classifier[1].in_features
