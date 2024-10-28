@@ -6,25 +6,6 @@ import io
 from PIL import Image
 
 
-class PlantDiseaseClassifier(nn.Module):
-    def __init__(self, num_classes):
-        super(PlantDiseaseClassifier, self).__init__()
-        # Load EfficientNetB0 model
-        self.base_model = models.efficientnet_b0()
-
-        # Modify classifier to match the number of classes
-        num_ftrs = self.base_model.classifier[1].in_features
-        self.base_model.classifier = nn.Sequential(
-            nn.Dropout(0.5),
-            nn.Linear(num_ftrs, 512),
-            nn.ReLU(),
-            nn.Linear(512, num_classes)  # Number of output classes
-        )
-
-    def forward(self, x):
-        return self.base_model(x)
-
-
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
@@ -72,9 +53,9 @@ num_classes = [
     'Tomato___healthy'
 ]
 
-model = PlantDiseaseClassifier(num_classes=len(num_classes))
-model.load_state_dict(torch.load(
-    './Models/effnet_l_weights_scripted.pt', map_location=torch.device('cpu')))
+file_path = "./Models/effnet_l_weights_scripted.pt"
+
+model = torch.jit.load(file_path, map_location=torch.device('cpu'))
 model.eval()
 
 
