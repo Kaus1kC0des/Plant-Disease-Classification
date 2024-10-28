@@ -11,6 +11,7 @@ from PIL import Image
 from tqdm.auto import tqdm
 from IPython.display import clear_output
 
+
 class PlantDiseaseClassifier(nn.Module):
     def __init__(self, num_classes):
         super(PlantDiseaseClassifier, self).__init__()
@@ -127,7 +128,6 @@ transform = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 ])
 
-
 num_classes = [
     'Apple___Apple_scab',
     'Apple___Black_rot',
@@ -167,11 +167,11 @@ num_classes = [
     'Tomato___Tomato_Yellow_Leaf_Curl_Virus',
     'Tomato___Tomato_mosaic_virus',
     'Tomato___healthy'
-    ]
+]
 
 model = PlantDiseaseClassifier(num_classes=len(num_classes))
 model.load_state_dict(torch.load(
-    './Models/effnet_l_weights.pth', map_location=torch.device('cpu')))
+    './Models/effnet_l_weights_scripted.pt', map_location=torch.device('cpu')))
 model.eval()
 
 
