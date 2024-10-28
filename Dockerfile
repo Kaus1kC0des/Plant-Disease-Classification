@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM python:3.10-slim
 
 # Set the working directory to /app
 WORKDIR /app
@@ -17,6 +17,7 @@ WORKDIR /app/Flask
 RUN pip install -U pip
 RUN pip install -r requirements.txt
 RUN pip install torch==2.2.1 torchvision==0.17.1 --index-url https://download.pytorch.org/whl/cpu
+RUN pip cache purge
 
 # Expose the port
 EXPOSE $PORT

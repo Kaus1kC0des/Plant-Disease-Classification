@@ -1,11 +1,4 @@
 matplotlib
-requests
-tqdm
-urllib3
 pillow
-numpy
-pandas
 gunicorn
-wandb
 flask
-IPython
