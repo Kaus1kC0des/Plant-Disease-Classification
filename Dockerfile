@@ -17,6 +17,7 @@ WORKDIR /app/Flask
 RUN pip install -U pip
 RUN pip install -r requirements.txt
 RUN pip install torch==2.2.1 torchvision==0.17.1 --index-url https://download.pytorch.org/whl/cpu
+RUN pip install numpy== 1.26.4
 RUN pip cache purge
 
 # Expose the port
