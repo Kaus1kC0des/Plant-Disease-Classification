@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, request
 from markupsafe import Markup
 from model import predict_image
 import utils

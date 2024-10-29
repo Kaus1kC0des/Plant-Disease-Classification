@@ -1,15 +1,14 @@
-import torch
-import torch.nn as nn
-import torchvision.models as models
-import torchvision.transforms as transforms
+from torch.jit import load as load_torchscript
+from torchvision.transforms import Resize, ToTensor, Normalize, Compose
 import io
 from PIL import Image
+from torch import max as tmax
+from torch import device as torch_device
 
-
-transform = transforms.Compose([
-    transforms.Resize((224, 224)),
-    transforms.ToTensor(),
-    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+transform = Compose([
+    Resize((224, 224)),
+    ToTensor(),
+    Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 ])
 
 num_classes = [
@@ -55,7 +54,7 @@ num_classes = [
 
 file_path = "./Models/effnet_l_weights_scripted.pt"
 
-model = torch.jit.load(file_path, map_location=torch.device('cpu'))
+model = load_torchscript(file_path, map_location=torch_device('cpu'))
 model.eval()
 
 
@@ -64,5 +63,5 @@ def predict_image(img):
     tensor = transform(img_pil)
     xb = tensor.unsqueeze(0)
     yb = model(xb)
-    _, preds = torch.max(yb, dim=1)
+    _, preds = tmax(yb, dim=1)
     return num_classes[preds[0].item()]
